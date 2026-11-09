@@ -5,6 +5,10 @@ const jwt = require("jsonwebtoken");
 
 const router = express.Router();
 
+
+const JWT_SECRET = process.env.JWT_SECRET || "dev_secret_default";
+const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "7d";
+
 // ---------- SIGNUP ----------
 router.post("/signup", async (req, res) => {
     const { name, email, password } = req.body;
@@ -114,8 +118,8 @@ router.post("/login", async (req, res) => {
         // generate token
         const token = jwt.sign(
             payload,
-            process.env.JWT_SECRET,
-            { expiresIn: process.env.JWT_EXPIRES_IN || "7d" }
+            JWT_SECRET,
+            { expiresIn: JWT_EXPIRES_IN }
         );
 
         // jangan kirim password ke frontend

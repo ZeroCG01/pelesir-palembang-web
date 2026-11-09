@@ -10,7 +10,7 @@ export default function SignUpPopup({ isOpen, onClose, onLogin }) {
             width="26"
             height="26"
             fill="none"
-            stroke="currentColor"
+            stroke="#fff"
             strokeWidth="3"
             strokeLinecap="round"
             strokeLinejoin="round"
