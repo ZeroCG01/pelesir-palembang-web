@@ -537,7 +537,7 @@
 }
 
 .signup-popup-btn {
-  width: 100px; /* bukan full 100% lagi */
+  width: 100px;
   padding: 8px 20px;
   background: #ff6b00;
   color: #fff;
@@ -548,8 +548,8 @@
   cursor: pointer;
   transition: all 0.2s ease;
   box-shadow: 0 2px 8px rgba(255, 107, 0, 0.2);
-  display: block; /* supaya bisa pakai margin auto */
-  margin: 0 auto; /* center secara horizontal */
+  display: block;
+  margin: 0 auto;
 }
 
 .signup-popup-btn:hover {

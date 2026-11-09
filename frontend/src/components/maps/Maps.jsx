@@ -51,7 +51,7 @@ const Maps = ({
   const accuracyCircleRef = useRef(null);
   const navigate = useNavigate();
 
-  // 🔹 Daftar lokasi: 4 lokasi yang diminta sudah DIHAPUS
+  // 🔹 Daftar lokasi destinasi Palembang
   const locations = [
     {
       lat: -3.00556,
@@ -61,6 +61,7 @@ const Maps = ({
       address:
         "Jl. Kol. H. Barlian No.936, Srijaya, Alang-Alang Lebar, Palembang",
       image: "/reco/bayt-alquran.png",
+      img: "/reco/bayt-alquran.png",
       description:
         "Al-Qur'an raksasa setinggi 15,6 meter yang menjadi ikon kota Palembang",
     },
@@ -71,6 +72,7 @@ const Maps = ({
       slug: "bukit-siguntang",
       address: "Bukit Lama, Ilir Barat I, Kota Palembang",
       image: "/reco/bukit-siguntang.png",
+      img: "/reco/bukit-siguntang.png",
       description: "Kompleks sejarah dan makam kerajaan Sriwijaya",
     },
     {
@@ -80,6 +82,7 @@ const Maps = ({
       slug: "bkb",
       address: "Jl. Merdeka, 19 Ilir, Bukit Kecil, Palembang",
       image: "/reco/bkb.png",
+      img: "/reco/bkb.png",
       description: "Benteng bersejarah peninggalan Kesultanan Palembang",
     },
     {
@@ -89,6 +92,7 @@ const Maps = ({
       slug: "kampung-kapitan",
       address: "Jl. Kapitan Rivai, 13 Ulu, Seberang Ulu II, Palembang",
       image: "/reco/kampung-kapitan.png",
+      img: "/reco/kampung-kapitan.png",
       description: "Kawasan pecinan bersejarah dengan arsitektur khas",
     },
     {
@@ -98,6 +102,7 @@ const Maps = ({
       slug: "taman-purbakala",
       address: "Jl. Sriwijaya, Bukit Lama, Ilir Barat I, Palembang",
       image: "/reco/taman-purbakala.png",
+      img: "/reco/taman-purbakala.png",
       description: "Taman arkeologi dengan koleksi arca dan prasasti Sriwijaya",
     },
     {
@@ -107,6 +112,7 @@ const Maps = ({
       slug: "pulau-kemaro",
       address: "Sungai Musi, Palembang",
       image: "/reco/pulau-kemaro.png",
+      img: "/reco/pulau-kemaro.png",
       description:
         "Pulau di Sungai Musi dengan pagoda dan legenda Siti Fatimah",
     },
@@ -117,6 +123,7 @@ const Maps = ({
       slug: "jakabaring",
       address: "Jl. Gubernur H. A. Bastari, Jakabaring, Palembang",
       image: "/reco/jakabaring.png",
+      img: "/reco/jakabaring.png",
       description: "Kompleks olahraga terbesar di Indonesia untuk SEA Games",
     },
     {
@@ -125,6 +132,7 @@ const Maps = ({
       name: "Museum SMB II",
       address: "Jl. Sultan Mahmud Badaruddin II, Palembang",
       image: "/reco/museum-smb2.png",
+      img: "/reco/museum-smb2.png",
       description: "Museum bersejarah di rumah limas tradisional Palembang",
     },
     {
@@ -134,6 +142,7 @@ const Maps = ({
       slug: "museum-balaputra",
       address: "Jl. Srijaya Negara, Bukit Besar, Palembang",
       image: "/reco/balaputra.png",
+      img: "/reco/balaputra.png",
       description:
         "Museum provinsi dengan koleksi artefak budaya Sumatera Selatan",
     },
@@ -144,6 +153,7 @@ const Maps = ({
       slug: "lorong-basah",
       address: "Jl. Kapten A. Rivai, 26 Ilir D. I, Bukit Kecil, Palembang",
       image: "/reco/lorong-basah.png",
+      img: "/reco/lorong-basah.png",
       description:
         "Pasar kuliner malam terkenal dengan berbagai makanan khas Palembang",
     },
@@ -155,6 +165,7 @@ const Maps = ({
       address:
         "9/10 Ulu, Kecamatan Seberang Ulu I, Kota Palembang, Sumatera Selatan",
       image: "/reco/ampera.png",
+      img: "/reco/ampera.png",
       description: "Jembatan Ampera yang menjadi ikon utama kota Palembang",
     },
     {
@@ -165,6 +176,7 @@ const Maps = ({
       address:
         "Jl. Merdeka No.1, 19 Ilir, Kec. Bukit Kecil, Kota Palembang, Sumatera Selatan 30113",
       image: "/reco/monpera.png",
+      img: "/reco/monpera.png",
       description: "Monumen perjuangan rakyat Palembang melawan penjajah",
     },
   ].map((l) => ({ ...l, slug: l.slug || toSlug(l.name) }));
@@ -175,7 +187,6 @@ const Maps = ({
     cssLink.rel = "stylesheet";
     cssLink.href = "https://unpkg.com/leaflet@1.7.1/dist/leaflet.css";
     document.head.appendChild(cssLink);
-
     const style = document.createElement("style");
     style.innerHTML = `
       .custom-popup .leaflet-popup-content-wrapper { border-radius: 12px; padding: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
@@ -226,7 +237,7 @@ const Maps = ({
       const popupContent = `
         <div style="width: 300px; font-family: Arial, sans-serif;">
           <div style="position: relative; margin: -15px -15px 10px -15px;">
-            <img src="${loc.image}" alt="${loc.name}"
+            <img src="${loc.img}" alt="${loc.name}"
                  style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px 8px 0 0;"
                  onerror="this.src='https://images.unsplash.com/photo-1569163139394-de4798aa62b6?w=400&h=300&fit=crop'">
           </div>

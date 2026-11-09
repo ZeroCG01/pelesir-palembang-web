@@ -5,8 +5,7 @@ const jwt = require("jsonwebtoken");
 
 const router = express.Router();
 
-
-const JWT_SECRET = process.env.JWT_SECRET || "dev_secret_default";
+const JWT_SECRET = process.env.JWT_SECRET || "massiveproject_super_secret_2025_very_long_key_9f3a7c2b";
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "7d";
 
 // ---------- SIGNUP ----------
@@ -21,7 +20,6 @@ router.post("/signup", async (req, res) => {
     }
 
     try {
-        // cek email sudah terdaftar atau belum
         const [exists] = await db.query(
             "SELECT id FROM profile WHERE email = ?",
             [email]
@@ -34,7 +32,6 @@ router.post("/signup", async (req, res) => {
             });
         }
 
-        // hash password sebelum disimpan
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const [result] = await db.query(
@@ -59,7 +56,6 @@ router.post("/signup", async (req, res) => {
     }
 });
 
-// ---------- LOGIN ----------
 router.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
@@ -97,7 +93,6 @@ router.post("/login", async (req, res) => {
 
         const user = rows[0];
 
-        // cek password (plain vs hash)
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(401).json({
@@ -108,21 +103,24 @@ router.post("/login", async (req, res) => {
 
         if (!user.avatar) user.avatar = "/avatar-default.png";
 
-        // bikin payload JWT
         const payload = {
             id: user.id,
             email: user.email,
             name: user.name,
         };
 
-        // generate token
+        if (!process.env.JWT_SECRET) {
+    return res.status(500).json({
+        success: false,
+        message: "Konfigurasi server belum lengkap (JWT_SECRET belum diisi).",
+    });
+}
         const token = jwt.sign(
             payload,
             JWT_SECRET,
             { expiresIn: JWT_EXPIRES_IN }
         );
 
-        // jangan kirim password ke frontend
         delete user.password;
 
         return res.json({
@@ -140,7 +138,6 @@ router.post("/login", async (req, res) => {
     }
 });
 
-// ---------- FORGOT PASSWORD (SIMULASI) ----------
 router.post("/forgot", async (req, res) => {
     const { email } = req.body;
 
